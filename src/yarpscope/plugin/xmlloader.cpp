@@ -118,6 +118,8 @@ XmlLoader::XmlLoader(QString fileName, PlotManager *plotManager,QObject *parent)
                 int graph_index;
                 double graph_y_scale;
                 int graph_size(default_graph_size);
+                double graph_bias{0};
+                double graph_gain{0};
 
                 if(graphAttributes.hasAttribute("remote")) {
                     graph_remote = graphAttributes.value("remote").toString();
@@ -157,9 +159,15 @@ XmlLoader::XmlLoader(QString fileName, PlotManager *plotManager,QObject *parent)
                         graph_size = default_graph_size;
                     }
                 }
+                if(graphAttributes.hasAttribute("bias")) {
+                    graph_bias = graphAttributes.value("bias").toDouble();
+                }
+                if(graphAttributes.hasAttribute("gain")) {
+                    graph_gain = graphAttributes.value("gain").toDouble();
+                }
                 if (plotter)
                 {
-                    Graph *graph = plotter->addGraph(graph_remote,"",graph_index,graph_title, graph_color, graph_type, graph_size, graph_y_scale);
+                    Graph *graph = plotter->addGraph(graph_remote,"",graph_index,graph_title, graph_color, graph_type, graph_size, graph_bias, graph_gain, graph_y_scale);
                     if(graph){
                         graph->init(graph_remote,"", portscope_carrier, portscope_persistent);
                     }

@@ -116,10 +116,10 @@ void Plotter::setPaintGeometry(QRectF r)
     \param the tickness of the graph
     \param graph_y_scale to multiply the all data points for a scale factor
 */
-Graph * Plotter::addGraph(QString remotePort,QString localPort,int index, QString title, QString color, QString type, int size, double graph_y_scale)
+Graph * Plotter::addGraph(QString remotePort,QString localPort,int index, QString title, QString color, QString type, int size, double bias, double gain, double graph_y_scale)
 {
     Graph *graph = nullptr;
-    graph = new Graph(index,title,color,type,size,graph_y_scale,this->size);
+    graph = new Graph(index,title,color,type,size,graph_y_scale,this->size,bias,gain);
 
 
     for(int i=0;i<graphList.count();i++) {
@@ -210,7 +210,7 @@ void Plotter::onTimeout()
                 t = -1.0;
             }
 
-            graph->appendValues(y,t);
+            graph->appendValues(y*graph->gain+graph->bias,t);
 
         }
 
@@ -243,7 +243,7 @@ void Plotter::clear()
 
 
 /***********************************************************/
-Graph::Graph(int index, QString title, QString color, QString type, int size, double graph_y_scale, int buffer_size, QObject *parent) :
+Graph::Graph(int index, QString title, QString color, QString type, int size, double graph_y_scale, int buffer_size, double bias, double gain, QObject *parent) :
     QObject(parent),
     lastX(0),
     lastY(0),
@@ -260,7 +260,9 @@ Graph::Graph(int index, QString title, QString color, QString type, int size, do
     type(std::move(type)),
     color(std::move(color)),
     lineSize(size),
-    title(std::move(title))
+    title(std::move(title)),
+    bias(bias),
+    gain(gain)
 {}
 
 
