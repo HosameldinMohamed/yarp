@@ -119,7 +119,7 @@ XmlLoader::XmlLoader(QString fileName, PlotManager *plotManager,QObject *parent)
                 double graph_y_scale;
                 int graph_size(default_graph_size);
                 double graph_bias{0};
-                double graph_gain{0};
+                double graph_gain{1};
 
                 if(graphAttributes.hasAttribute("remote")) {
                     graph_remote = graphAttributes.value("remote").toString();
