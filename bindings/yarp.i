@@ -1544,8 +1544,63 @@ typedef yarp::os::BufferedPort<ImageRgbFloat> BufferedPortImageRgbFloat;
 }
 
 %extend yarp::dev::IFrameTransform {
+    bool allFramesAsString(std::string &all_frames) {
+        return self->allFramesAsString(all_frames);
+    }
+
+    bool canTransform(const std::string &target_frame, const std::string &source_frame) {
+        return self->canTransform(target_frame, source_frame);
+    }
+
+    bool clear() {
+        return self->clear();
+    }
+
     bool frameExists (const std::string &frame_id) {
         return self->frameExists(frame_id);
+    }
+
+        std::vector< std::string > getAllFrameIds(std::vector< std::string > &ids) {
+        std::vector< std::string > ids;
+        bool ok = self->getAllFrameIds(ids);
+        if (!ok) return 0;
+        return ids;
+    }
+
+    bool getParent (const std::string &frame_id, std::string &parent_frame_id) {
+        return true;
+    }
+
+    bool getTransform (const std::string &target_frame_id, const std::string &source_frame_id, yarp::sig::Matrix &transform) {
+        return true;
+    }
+
+    bool setTransform (const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Matrix &transform) {
+        return true;
+    }
+
+    bool setTransformStatic(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Matrix &transform) {
+        return true;
+    }
+
+    bool deleteTransform (const std::string &target_frame_id, const std::string &source_frame_id) {
+        return true;
+    }
+
+    bool transformPoint (const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Vector &input_point, yarp::sig::Vector &transformed_point) {
+        return true;
+    }
+
+    bool transformPose(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::sig::Vector &input_pose, yarp::sig::Vector &transformed_pose) {
+        return true;
+    }
+
+    bool transformQuaternion(const std::string &target_frame_id, const std::string &source_frame_id, const yarp::math::Quaternion &input_quaternion, yarp::math::Quaternion &transformed_quaternion) {
+        return true;
+    }
+
+    bool waitForTransform(const std::string &target_frame_id, const std::string &source_frame_id, const double &timeout) {
+        return true;
     }
 }
 
