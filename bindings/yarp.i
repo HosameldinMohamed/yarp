@@ -245,7 +245,7 @@
 #include <yarp/os/all.h>
 #include <yarp/sig/all.h>
 #include <yarp/dev/all.h>
-
+#include <yarp/dev/IFrameTransform.h>
 
 // Sometimes ACE redefines main() - we don't want that
 #ifdef main
