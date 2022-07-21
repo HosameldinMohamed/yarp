@@ -1543,6 +1543,12 @@ typedef yarp::os::BufferedPort<ImageRgbFloat> BufferedPortImageRgbFloat;
     }
 }
 
+%extend yarp::dev::IFrameTransform {
+    bool frameExists (const std::string &frame_id) {
+        return self->frameExists(frame_id);
+    }
+}
+
 // This is part is currently broken in SWIG + java generator since SWIG 3.0.3
 // (last swig version tested: 3.0.12)
 // See also https://github.com/robotology/yarp/issues/1770
